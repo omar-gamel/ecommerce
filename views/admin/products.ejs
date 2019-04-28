@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main style="margin-top: 90px;">
+        <div class="container">
+            <p>
+                <a href="/admin/add-product" class="btn btn-primary">New Product</a>
+            </p>
+            <p>
+                <form action="/admin/products" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search" name="search">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">Go</button> 
+                        </div>
+                    </div>
+                </form>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let product of prods) { %>
+                    <tr>
+                        <td>
+                            <%= product.title  %>
+                        </td>
+                        <td>
+                            <%= product.price %>
+                        </td>
+                        <td>
+                            <a href="/admin/edit-product/<%= product._id %>?edit=true">Edit</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

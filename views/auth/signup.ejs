@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main style="margin-top: 90px;">
+        <div class="container col-4">
+            <form class="login-form" action="/signup" method="POST" novalidate>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input 
+                        class="form-control <%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>"
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        value="<%= oldInput.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input 
+                        class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        value="<%= oldInput.email %>">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        value="<%= oldInput.password %>">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        class="form-control <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+                        type="password" 
+                        name="confirmPassword" 
+                        id="confirmPassword" 
+                        value="<%= oldInput.confirmPassword %>">
+                </div>
+                <button class="btn btn-primary" type="submit">Signup</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

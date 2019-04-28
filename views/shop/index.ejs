@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+<body>
+    <main style="margin-top: 90px; margin-bottom: 300px;">
+        <div class="container-fluid">
+            <%- include('../includes/navigation.ejs') %>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="sticky-top" style="top: 80px;">
+                        <div class="list-group">
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === '') ? 'active' : '' %>" 
+                              href="/">All Categories</a>
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === 'shirt') ? 'active' : '' %>" 
+                              href="?category=shirt">Shirt</a>
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === 'dresses') ? 'active' : '' %>" 
+                              href="?category=dresses">Dresses</a>
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === 'shoes') ? 'active' : '' %>" 
+                              href="?category=shoes">Shoes</a>
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === 'jacket') ? 'active' : '' %>" 
+                              href="?category=jacket">Jacket</a>
+                            <a 
+                              class="list-group-item list-group-item-action <%= (selectedCategory === 'pants') ? 'active' : '' %>" 
+                              href="?category=pants">Pants</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <% if (prods.length > 0) { %>
+                    <div class="row">
+                        <% for (let p of prods) { %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img
+                                        style="height: 300px;"
+                                        class="card-img-top"  
+                                        src="/<%= p.imageUrl %>" 
+                                        alt="<%= p.title %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= p.title %></h5>
+                                        <p class="card-text">$<%= p.price %></p>
+                                    </div>
+                                    <form action="/add-to-cart" method="post">
+                                        <input type="hidden" value="<%= p._id %>" name="productId">
+                                        <button class="btn btn-primary btn-block">Add to Cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                    <% } %>
+                </div>
+            </div>                                     
+            
+        </div>
+    </main>
+    <%- include('../includes/footer.ejs') %>    
+</body>
+</html>

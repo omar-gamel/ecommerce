@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/cart.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+<body>
+   <%- include('../includes/navigation.ejs') %>
+    <main style="margin-top: 90px;">
+        <div class="container-fluid">
+            <h1>Shopping Cart</h1>
+            <p>
+                <form action="/clearCart" method="post">
+                    You have <%= totalItemsCount %> items in your shopping cart.
+                    <button type="submit" class="btn btn-light btn-sm">Clear Shopping Cart</button>
+                </form>  
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th class="text-center" style="width: 230px">Quantity</th>
+                    <th class="text-right" style="width: 200px">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(p => { %>
+                        <tr>
+                        <td>
+                            <img class="thumbnail" src="<%= p.productId.imageUrl %>" alt="p.productId.title">
+                        </td>
+                        <td>
+                            <%= p.productId.title %>
+                            <form action="/cart-delete-item" method="post">
+                              <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                              <button type="submit" class="btn btn-danger btn-sm pr-4 pl-4 mt-2">Remove</button>
+                            </form>  
+                        </td>
+                        <td class="text-center">
+                            <%= p.quantity %>
+                        </td>
+                        <td class="text-right">
+                            <%= p.productId.price %>
+                        </td>
+                        </tr>
+                    <% }) %>    
+                </tbody>
+                <tfoot>
+                    <tr>
+                    <th></th>
+                    <th></th>
+                    <th class="text-center">Total Price : </th>
+                    <th class="text-right">$ <%= totalPrice %></th>
+                    </tr>
+                </tfoot>
+            </table>
+            <a disabled="<%= products.length === 0 %>" href="/check-out" class="mt-2 mr-2 float-right btn btn-primary">Check Out</a>
+        </div>
+    </main>
+</body>
+</html>

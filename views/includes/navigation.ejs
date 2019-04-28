@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="/">
+        <img src="https://i2.wp.com/thecrazycouponchick.com/wp-content/uploads/2018/11/kisspng-stop-shop-logo-united-states-retail-organization-shop-5aca5d850178e6.2688489115232116530061.jpg?ssl=1" style="width: 30spx; height: 30px;" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/shopping-cart">
+                    Shopping Cart
+                    <span class="badge badge-warning badge-pill">
+                        <%= totalItemsCount %>
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav  navbar-right mr-4">
+            <% if (!isAuthenticated) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item dropdown">
+                <a  class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= userName %> </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="/my/orders">My Orders</a>
+                    <% if (isAdmin) { %>
+                        <a class="dropdown-item" href="/admin/orders">Manage Orders</a>
+                        <a class="dropdown-item" href="/admin/products">Manage Products</a>
+                    <% } %>  
+                    <form action="/logout" method="post">
+                        <button  class="dropdown-item" type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </div>
+                </li>
+            <% } %>  
+        </ul>
+    </div>
+</nav>
