@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const port = process.env.PORT || 3000;
 
 const User = require('./models/user');
 const adminRoutes = require('./routes/admin');
@@ -13,7 +14,9 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 const errorController = require('./controllers/error');
 
-const MONGODB_URI = 'mongodb://localhost:27017/oshop';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${
+  process.env.MONGO_PASSWORD
+}@cluster0-kwacm.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -94,7 +97,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
@@ -113,5 +115,5 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true })
-  .then(result => { app.listen(8000); console.log('Connected to MongoDB...') })
+  .then(result => { app.listen(port); console.log('Connected to MongoDB...') })
   .catch(err => console.log(err));

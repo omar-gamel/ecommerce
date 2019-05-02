@@ -1,14 +1,18 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "e-commerce",
   "version": "1.0.0",
   "description": "Complete Node.js Guide",
   "main": "app.js",
+  "engines": {
+    "node": "10.9.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
+    "start": "node app.js",
+    "start-server": "node app.js",
+    "start:dev": "nodemon app.js"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "omar gamel",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.9"

@@ -2,9 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { validationResult } = require('express-validator/check');
-
 const Product = require('../models/product');
-const fileHelper = require('../util/file');
 
 exports.getProducts = async (req, res, next) => {
     try {
@@ -168,7 +166,7 @@ exports.postEditProduct = async (req, res, next) => {
         product.price = updatedPrice;
         product.description = updatedCategory;
         if (image) {
-            fileHelper.deleteFile(product.imageUrl);
+            clearImage(product.imageUrl);
             product.imageUrl = image.path;
         }
         await product.save();
@@ -188,7 +186,7 @@ exports.postDeleteProduct = async (req, res, next) => {
         if(!product) { 
              return next(new Error('Product not found.'));
         }
-        fileHelper.deleteFile(product.imageUrl);
+        clearImage(product.imageUrl);
         await Product.deleteOne({ _id: prodId });
         console.log('DESTROYED PRODUCT');
         res.redirect('/admin/products');
@@ -197,4 +195,9 @@ exports.postDeleteProduct = async (req, res, next) => {
         error.httpStatusCode = 500;
         return next(error);
     }
+};
+
+const clearImage = filePath => {
+    filePath = path.join(__dirname, '..', filePath);
+    fs.unlink(filePath, err => console.log(err));
 };
